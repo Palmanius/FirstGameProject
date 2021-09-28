@@ -13,7 +13,7 @@ def redraw_window():
 
 
 def main():
-    clock = pygame.time.clock()
+    clock = pygame.time.Clock()
     run = True
     while run:
         clock.tick(FPS)
