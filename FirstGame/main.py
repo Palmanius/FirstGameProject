@@ -15,19 +15,18 @@ level = 0
 enemy_wave = 5
 enemies = []
 
-moving_sprites = pygame.sprite.Group()
+
 player = Player(100,100)
-moving_sprites.add(player)
+
 
 def redraw_window():
 
     WIN.fill(WHITE)
-
     for enemy in enemies:
         enemy.draw(WIN)
+    player.draw(WIN)
+    player.update()
 
-    moving_sprites.draw(WIN)
-    moving_sprites.update()
     pygame.display.update()
 
 

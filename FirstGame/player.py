@@ -2,10 +2,8 @@ import pygame, os
 class Player(pygame.sprite.Sprite):
     def __init__(self,pos_x,pos_y,health = 100,shields = 100):
         super().__init__()
-        """ self.image = pygame.Surface([16,16])
-        self.image.fill((0,0,0))
-        self.rect = self.image.get_rect()
-        self.rect.topleft = [pos_x,pos_y] """
+        self.pos_x = pos_x
+        self.pos_y = pos_y
         self.sprites = []
         self.is_animating = False
         self.size_x = 50
@@ -36,3 +34,8 @@ class Player(pygame.sprite.Sprite):
             self.image = self.sprites[int(self.current_sprite)]
         else:
             self.image = self.sprites[0]
+
+    def draw(self, window):
+        window.blit(self.sprites[int(self.current_sprite)], (self.pos_x, self.pos_y))
+    
+
