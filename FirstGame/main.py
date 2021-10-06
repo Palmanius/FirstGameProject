@@ -23,7 +23,9 @@ def redraw_window():
 
     WIN.fill(WHITE)
     for enemy in enemies:
+        enemy.update()
         enemy.draw(WIN)
+
     player.draw(WIN)
     player.update()
 
@@ -43,7 +45,7 @@ def main():#
             level += 1
             enemy_wave += 5
             for i in range(enemy_wave):
-                enemy = Enemy(random.randrange(WIDTH, WIDTH+1500), random.randrange(5,HEIGHT-5))
+                enemy = Enemy(random.randrange(WIDTH, WIDTH+1500), random.randrange(25,HEIGHT-25))
                 enemies.append(enemy)
 
 
