@@ -1,4 +1,5 @@
 import pygame, random
+from controlls import *
 from player import Player
 from enemy import *
 
@@ -56,10 +57,17 @@ def main():#
                 run = False
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_w:
+                    
                     player.animate()
+            
             if event.type == pygame.KEYUP:
                 if event.key == pygame.K_w:
                     player.stop_animating()
+        
+        
+        
+        controls(player)
+        
         for enemy in enemies:
             enemy.move(enemy_vel)
         redraw_window()
