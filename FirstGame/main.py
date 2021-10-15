@@ -11,6 +11,9 @@ WHITE = (255, 255, 255)
 BLACK = (0, 0, 0)
 FPS = 60
 
+bkgd = pygame.image.load(os.path.join("FirstGame","Assets","Background.png")).convert()
+x = 0
+
 enemy_vel = 1
 level = 0
 enemy_wave = 5
@@ -22,7 +25,7 @@ player = Player(100,100)
 
 def redraw_window():
 
-    WIN.fill(WHITE)
+    #WIN.fill(WHITE)
     for enemy in enemies:
         enemy.update()
         enemy.draw(WIN)
@@ -36,7 +39,7 @@ def redraw_window():
 
 
 def main():#
-    global enemy_vel, level, enemies, enemy_wave
+    global enemy_vel, level, enemies, enemy_wave, x
     clock = pygame.time.Clock()
     run = True
     while run:
@@ -49,8 +52,17 @@ def main():#
                 enemy = Enemy(random.randrange(WIDTH, WIDTH+1500), random.randrange(25,HEIGHT-25))
                 enemies.append(enemy)
 
+        # Background scrolling
 
+        rel_x = x % bkgd.get_rect().width
+        WIN.blit(bkgd, (rel_x - bkgd.get_rect().width, 0))
 
+        if rel_x < WIDTH:
+            WIN.blit(bkgd, (rel_x, 0))
+
+        x -= 1
+
+        #End od background scrolling
 
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
