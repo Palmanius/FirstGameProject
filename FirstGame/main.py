@@ -2,6 +2,7 @@ import pygame, random
 from controlls import *
 from player import Player
 from enemy import *
+from asteroids import *
 
 
 WIDTH, HEIGHT = 900, 500
@@ -18,6 +19,7 @@ enemy_vel = 1
 level = 0
 enemy_wave = 5
 enemies = []
+asts = []
 
 
 player = Player(100,100)
@@ -29,6 +31,10 @@ def redraw_window():
     for enemy in enemies:
         enemy.update()
         enemy.draw(WIN)
+
+    for ast in asts:
+        ast.update()
+        ast.draw(WIN)
 
     player.draw(WIN)
     player.update()
@@ -51,6 +57,8 @@ def main():#
             for i in range(enemy_wave):
                 enemy = Enemy(random.randrange(WIDTH, WIDTH+1500), random.randrange(25,HEIGHT-25))
                 enemies.append(enemy)
+                ast = Asteroid(random.randrange(WIDTH, WIDTH+1500), random.randrange(25,HEIGHT-25))
+                asts.append(ast)
 
         # Background scrolling
 
@@ -82,6 +90,9 @@ def main():#
         
         for enemy in enemies:
             enemy.move(enemy_vel)
+        redraw_window()
+        for ast in asts:
+            ast.move(enemy_vel)
         redraw_window()
 
     pygame.quit()
