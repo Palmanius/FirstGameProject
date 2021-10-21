@@ -13,6 +13,9 @@ WHITE = (255, 255, 255)
 BLACK = (0, 0, 0)
 FPS = 60
 
+bkgd = pygame.image.load(os.path.join("FirstGame","Assets","Background.png")).convert()
+x = 0
+
 enemy_vel = 1
 level = 0
 enemy_wave = 5
@@ -28,7 +31,7 @@ player = Player(100,100)
 
 def redraw_window():
 
-    WIN.fill(WHITE)
+    #WIN.fill(WHITE)
     for enemy in enemies:
         enemy.update()
         enemy.draw(WIN)
@@ -45,7 +48,9 @@ def redraw_window():
 
 
 def main():#
-    global enemy_vel, level, enemies, enemy_wave, asts_vel, asts_wave, asts
+
+    global enemy_vel, level, enemies, enemy_wave, asts_vel, asts_wave, asts, x
+
     clock = pygame.time.Clock()
     run = True
     while run:
@@ -60,8 +65,19 @@ def main():#
                 ast = Asteroid(random.randrange(WIDTH, WIDTH+1500), random.randrange(25,HEIGHT-25))
                 asts.append(ast)
 
+        # Background scrolling
+
+        rel_x = x % bkgd.get_rect().width
+        WIN.blit(bkgd, (rel_x - bkgd.get_rect().width, 0))
+
+        if rel_x < WIDTH:
+            WIN.blit(bkgd, (rel_x, 0))
+
 
         key_press(player)
+
+        x -= 1
+
         controls(player)
         
         for enemy in enemies:
