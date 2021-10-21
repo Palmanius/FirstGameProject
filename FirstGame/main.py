@@ -3,6 +3,7 @@ from controlls import *
 from player import Player
 from enemy import *
 from asteroids import *
+from key_press_animation import *
 
 
 WIDTH, HEIGHT = 900, 500
@@ -19,6 +20,9 @@ enemy_vel = 1
 level = 0
 enemy_wave = 5
 enemies = []
+
+asts_vel = 1
+asts_wave = 5
 asts = []
 
 
@@ -43,9 +47,10 @@ def redraw_window():
 
 
 
-
 def main():#
-    global enemy_vel, level, enemies, enemy_wave, x
+
+    global enemy_vel, level, enemies, enemy_wave, asts_vel, asts_wave, asts, x
+
     clock = pygame.time.Clock()
     run = True
     while run:
@@ -68,31 +73,18 @@ def main():#
         if rel_x < WIDTH:
             WIN.blit(bkgd, (rel_x, 0))
 
+
+        key_press(player)
+
         x -= 1
 
-        #End od background scrolling
-
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                run = False
-            if event.type == pygame.KEYDOWN:
-                if event.key == pygame.K_w:
-                    
-                    player.animate()
-            
-            if event.type == pygame.KEYUP:
-                if event.key == pygame.K_w:
-                    player.stop_animating()
-        
-        
-        
         controls(player)
         
         for enemy in enemies:
             enemy.move(enemy_vel)
         redraw_window()
         for ast in asts:
-            ast.move(enemy_vel)
+            ast.move(asts_vel)
         redraw_window()
 
     pygame.quit()
