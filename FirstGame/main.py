@@ -86,9 +86,11 @@ def main():#
         for ast in asts:
             ast.move(asts_vel)
         redraw_window()
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                run = False
+    pygame.quit()   
 
-    pygame.quit()
-
-
+    
 if __name__ == "__main__":
     main()
