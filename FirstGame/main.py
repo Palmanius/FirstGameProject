@@ -2,6 +2,8 @@ import pygame, random
 from controlls import *
 from player import Player
 from enemy import *
+from asteroids import *
+from key_press_animation import *
 
 
 WIDTH, HEIGHT = 900, 500
@@ -19,6 +21,10 @@ level = 0
 enemy_wave = 5
 enemies = []
 
+asts_vel = 1
+asts_wave = 5
+asts = []
+
 
 player = Player(100,100)
 
@@ -30,16 +36,20 @@ def redraw_window():
         enemy.update()
         enemy.draw(WIN)
 
+    for ast in asts:
+        ast.update()
+        ast.draw(WIN)
+
     player.draw(WIN)
     player.update()
 
     pygame.display.update()
 
 
-
-
 def main():#
-    global enemy_vel, level, enemies, enemy_wave, x
+
+    global enemy_vel, level, enemies, enemy_wave, asts_vel, asts_wave, asts, x
+
     clock = pygame.time.Clock()
     run = True
     while run:
@@ -51,6 +61,8 @@ def main():#
             for i in range(enemy_wave):
                 enemy = Enemy(random.randrange(WIDTH, WIDTH+1500), random.randrange(25,HEIGHT-25))
                 enemies.append(enemy)
+                ast = Asteroid(random.randrange(WIDTH, WIDTH+1500), random.randrange(25,HEIGHT-25))
+                asts.append(ast)
 
         # Background scrolling
 
@@ -60,32 +72,22 @@ def main():#
         if rel_x < WIDTH:
             WIN.blit(bkgd, (rel_x, 0))
 
+        key_press(player)
+        controls(player)
+        
         x -= 1
+                
+        for enemy in enemies:
+            enemy.move(enemy_vel)
 
-        #End od background scrolling
-
+        for ast in asts:
+            ast.move(asts_vel)
+        redraw_window()
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 run = False
-            if event.type == pygame.KEYDOWN:
-                if event.key == pygame.K_w:
-                    
-                    player.animate()
-            
-            if event.type == pygame.KEYUP:
-                if event.key == pygame.K_w:
-                    player.stop_animating()
-        
-        
-        
-        controls(player)
-        
-        for enemy in enemies:
-            enemy.move(enemy_vel)
-        redraw_window()
+    pygame.quit()   
 
-    pygame.quit()
-
-
+    
 if __name__ == "__main__":
     main()
