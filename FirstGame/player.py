@@ -10,10 +10,13 @@ class Player(pygame.sprite.Sprite):
         self.size_y = 50
         self.animation_speed = 0.2
         Spaceship_image = pygame.image.load(os.path.join("FirstGame","Assets","SpaceShip_(moving1).png"))
+        Spaceship_image = pygame.transform.rotate(Spaceship_image, 270)
         self.sprites.append(pygame.transform.scale(Spaceship_image,(self.size_x,self.size_y)))
         Spaceship_image = pygame.image.load(os.path.join("FirstGame","Assets","SpaceShip_(moving2).png"))
+        Spaceship_image = pygame.transform.rotate(Spaceship_image, 270)
         self.sprites.append(pygame.transform.scale(Spaceship_image,(self.size_x,self.size_y)))
         Spaceship_image = pygame.image.load(os.path.join("FirstGame","Assets","SpaceShip_(moving3).png"))
+        Spaceship_image = pygame.transform.rotate(Spaceship_image, 270)
         self.sprites.append(pygame.transform.scale(Spaceship_image,(self.size_x,self.size_y)))
 
         self.current_sprite = 0
