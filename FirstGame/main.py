@@ -1,12 +1,15 @@
 import pygame, random
+import tkinter as tk
+
+
 from controlls import *
 from player import Player
 from enemy import *
 from asteroids import *
 from key_press_animation import *
 
-
-WIDTH, HEIGHT = 900, 500
+root = tk.Tk()
+WIDTH, HEIGHT = root.winfo_screenwidth(), root.winfo_screenheight() -50
 WIN = pygame.display.set_mode((WIDTH, HEIGHT))
 pygame.display.set_caption("Space Game")
 WHITE = (255, 255, 255)
@@ -14,6 +17,7 @@ BLACK = (0, 0, 0)
 FPS = 60
 
 bkgd = pygame.image.load(os.path.join("FirstGame","Assets","Background.png")).convert()
+bkgd = pygame.transform.scale(bkgd, (WIDTH,HEIGHT))
 x = 0
 
 enemy_vel = 1
